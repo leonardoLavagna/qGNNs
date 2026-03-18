@@ -10,11 +10,6 @@
 #   object from a NetworkX graph and optional signals.
 # - build_from_adjacency: Builds a graph from an adjacency matrix 
 #   and returns a GraphInput object.
-# - default_two_node(...): Generates a simple two-node graph.
-# - default_path(...): Generates a path graph with n nodes.
-# - default_cycle(...): Generates a cycle graph with n nodes.
-# - default_complete(...): Generates a complete graph with n nodes.
-# - default_star(...): Generates a star graph with n nodes.
 #
 # These utilities are designed to provide a consistent interface for all
 # downstream modules (classical GNN, quantum spectral filters, Chebyshev-based
@@ -262,43 +257,3 @@ def build_from_adjacency(adjacency: Union[np.ndarray, Sequence[Sequence[Number]]
         raise ValueError("Adjacency must be symmetric.")
     G = nx.from_numpy_array(A)
     return build_graph_input(G, node_signals, edge_signals)
-
-
-def default_two_node(node_signals: Optional[Sequence] = None,
-                     edge_signals: Optional[Dict[EdgeKey, Sequence]] = None,) -> GraphInput:
-    """
-    Create 2-node graph.
-
-    Returns:
-        GraphInput.
-    """
-    return build_graph_input(nx.path_graph(2), node_signals, edge_signals)
-
-
-def default_path(n: int, node_signals=None, edge_signals=None) -> GraphInput:
-    """Create path graph."""
-    return build_graph_input(nx.path_graph(n), node_signals, edge_signals)
-
-
-def default_cycle(n: int, node_signals=None, edge_signals=None) -> GraphInput:
-    """Create cycle graph."""
-    return build_graph_input(nx.cycle_graph(n), node_signals, edge_signals)
-
-
-def default_complete(n: int, node_signals=None, edge_signals=None) -> GraphInput:
-    """Create complete graph."""
-    return build_graph_input(nx.complete_graph(n), node_signals, edge_signals)
-
-
-def default_star(n: int, node_signals=None, edge_signals=None) -> GraphInput:
-    """Create star graph."""
-    return build_graph_input(nx.star_graph(n - 1), node_signals, edge_signals)
-
-
-DEFAULT_GRAPHS = {
-    "two_node": default_two_node,
-    "path": default_path,
-    "cycle": default_cycle,
-    "complete": default_complete,
-    "star": default_star,
-}
