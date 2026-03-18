@@ -31,7 +31,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Callable, Optional
 import numpy as np
-from utilities.graphs import GraphInput
+from utils.graphs import GraphInput
 
 
 Activation = Callable[[np.ndarray], np.ndarray]
