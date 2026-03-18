@@ -92,8 +92,8 @@ class GraphInput:
         node_signals: Optional array (N, F_node).
         edge_signals: Dict mapping (u,v) -> feature vector.
     """
-    graph: nx.Graph
-    node_order: List[int]
+    graph: nx.Graph = nx.path_graph(2)
+    node_order: List[int] = field(default_factory=lambda: sorted(nx.path_graph(2).nodes()))
     node_signals: Optional[np.ndarray] = None
     edge_signals: Dict[EdgeKey, np.ndarray] = field(default_factory=dict)
 
